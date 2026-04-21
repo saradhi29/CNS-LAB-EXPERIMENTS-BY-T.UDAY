@@ -1,0 +1,87 @@
+<!--
+======================
+   EXPERIMENT - 9
+======================
+
+AIM:
+Implement Diffie-Hellman Key Exchange.
+
+DESCRIPTION:
+Diffie-Hellman is used to securely exchange a secret key between two parties.
+It does not send the key directly but generates the same key on both sides.
+
+ALGORITHM:
+1. Input prime number p
+2. Input base g
+3. Input private key a
+4. Generate private key b
+5. Compute public keys A and B
+6. Generate shared key
+7. Display output
+-->
+
+<html>
+<head>
+    <title>Diffie-Hellman Key Exchange</title>
+</head>
+
+<body>
+
+<h2>Diffie-Hellman Key Exchange</h2>
+
+<label>Enter Prime Number (p):</label><br>
+<input type="number" id="p" value="23"><br><br>
+
+<label>Enter Base (g):</label><br>
+<input type="number" id="g" value="5"><br><br>
+
+<label>Enter Private Key (a):</label><br>
+<input type="number" id="a" value="6"><br><br>
+
+<button onclick="run()">Generate Key</button>
+
+<h3 id="output"></h3>
+
+<script>
+
+function power(base, exp, mod)
+{
+    let result = 1;
+
+    for(let i = 0; i < exp; i++)
+    {
+        result = (result * base) % mod;
+    }
+
+    return result;
+}
+
+function run()
+{
+    let p = parseInt(document.getElementById("p").value);
+    let g = parseInt(document.getElementById("g").value);
+    let a = parseInt(document.getElementById("a").value);
+
+    let b = 4;   // Bob's private key
+
+    let A = power(g, a, p);   // Alice public key
+    let B = power(g, b, p);   // Bob public key
+
+    let key1 = power(B, a, p);
+    let key2 = power(A, b, p);
+
+    document.getElementById("output").innerHTML =
+        "Shared Key (Alice): " + key1 + "<br>" +
+        "Shared Key (Bob): " + key2;
+}
+
+</script>
+
+</body>
+</html>
+
+<!--
+OUTPUT:
+Shared Key (Alice): 2
+Shared Key (Bob): 2
+-->
